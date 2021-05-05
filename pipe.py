@@ -26,3 +26,29 @@ async def crypto(message):
     await message.channel.send('Fuente: https://binance.com')
 
     
+async def cryptoembed(message):
+    content = ''
+    price = 0.0
+    for i in binan.list:
+        if 'BTCUSDT' in i or 'ETHUSDT' in i or 'ADAUSDT' in i or 'DOTUSDT' in i or 'BNBUSDT' in i or 'DOGEUSDT' in i:
+            price = binan.getPrice(i)
+            content += ' :dollar: **'
+            content += i.replace('USDT', '')
+            content += '**'
+            price = '{0:.2f}'.format(float(price))
+            content += f' = {price}'
+            content += '\n'
+            
+    #await message.channel.send(str(content))
+    #await message.channel.send('Fuente: https://binance.com')
+    embed = discord.Embed(
+        title = '',
+        description = str(content),
+        colour = discord.Colour.red()
+    )
+    
+    embed.set_footer(text='Fuente: https://binance.com')
+    embed.set_thumbnail(url='https://cdn.discordapp.com/attachments/753378634353344535/839562906596540426/binance-coin-bnb-logo.png')
+    embed.set_author(name='Walter Bot')
+    
+    await message.channel.send(embed=embed)
