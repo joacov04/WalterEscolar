@@ -6,19 +6,22 @@ coin, pair = '', ''
 async def findPrice(message):
     for i in binan.list:
         if message.content.upper() == i:
-            await message.channel.send('{0:.2f}'.format(float(binan.getPrice(i.upper()))))
+            await message.channel.send('{0:.5f}'.format(float(binan.getPrice(i.upper()))))
 
 
 async def crypto(message):
     content = ''
     price = 0.0
     for i in binan.list:
-        if 'BTCUSDT' in i or 'ETHUSDT' in i or 'ADAUSDT' in i or 'DOTUSDT' in i or 'BNBUSDT' in i or 'DOGEUSDT' in i:
+        if 'BTCUSDT' in i or 'ETHUSDT' in i or 'ADAUSDT' in i or 'DOTUSDT' in i or 'BNBUSDT' in i or 'DOGEUSDT' in i or 'XRPUSDT' in i:
             price = binan.getPrice(i)
             content += ' :dollar: **'
             content += i.replace('USDT', '')
             content += '**'
-            price = '{0:.2f}'.format(float(price))
+            if price > 0.01
+                price = '{0:.5f}'.format(float(price))
+            else
+                price = '{0:.2f}'.format(float(price))
             content += f' = {price}'
             content += '\n'
             
