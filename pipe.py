@@ -13,7 +13,7 @@ async def crypto(message):
     content = ''
     price = 0.0
     for i in binan.list:
-        if 'BTCUSDT' in i or 'ETHUSDT' in i or 'ADAUSDT' in i or 'DOTUSDT' in i or 'BNBUSDT' in i or 'DOGEUSDT' in i:
+        if 'BTCUSDT' in i or 'ETHUSDT' in i or 'ADAUSDT' in i or 'DOTUSDT' in i or 'BNBUSDT' in i or 'DOGEUSDT' in i or 'XRPUSDT' in i:
             price = binan.getPrice(i)
             content += ' :dollar: **'
             content += i.replace('USDT', '')
