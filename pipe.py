@@ -15,12 +15,12 @@ async def crypto(message):
     for i in binan.list:
         if 'BTCUSDT' in i or 'ETHUSDT' in i or 'ADAUSDT' in i or 'DOTUSDT' in i or 'BNBUSDT' in i or 'DOGEUSDT' in i or 'XRPUSDT' in i:
             price = binan.getPrice(i)
-            content += ' :dollar: **'
+            content += ':dollar: ** '
             content += i.replace('USDT', '')
             content += '**'
-            if price > 0.01
+            if float(price) < 5:
                 price = '{0:.5f}'.format(float(price))
-            else
+            else:
                 price = '{0:.2f}'.format(float(price))
             content += f' = {price}'
             content += '\n'
