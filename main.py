@@ -45,7 +45,7 @@ async def links():
         nom = dicc.get("nombre")
         content = f"Clase de {nom}, link: {link}"
         message_channel = client.get_channel(838783941355896884)
-        message_channel2 = client.get_channel(687825016557010971)
+        message_channel2 = client.get_channel(842742270155685898)
         await message_channel.send(content)
         await message_channel2.send(content)
 
