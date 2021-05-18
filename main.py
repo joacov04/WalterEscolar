@@ -27,9 +27,6 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('hola'):
-        await message.channel.send(':dollar:**hola trolazo**')
-
     await pipe.findPrice(message)
 
     if message.content.startswith(prefix):
