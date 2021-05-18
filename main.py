@@ -46,8 +46,10 @@ async def links():
         content = f"Clase de {nom}, link: {link}"
         message_channel = client.get_channel(838783941355896884)
         message_channel2 = client.get_channel(842742270155685898)
+        message_channel3 = client.get_channel(838812861437313055)
         await message_channel.send(content)
         await message_channel2.send(content)
+        await message_channel3.send(content)
 
 
 @tasks.loop(hours=8)
