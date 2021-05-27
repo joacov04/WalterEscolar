@@ -47,6 +47,14 @@ async def links():
         await message_channel.send(content,  delete_after=72000)
         await message_channel3.send(content, delete_after=72000)
         await message_channel2.send(content, delete_after=72000)
+    
+    if meets.mandar2() is not None:
+        dicc = meets.mandar2()
+        link = dicc.get("link")
+        nom = dicc.get("nombre")
+        content = f"Clase de {nom}, link: {link}"
+        message_channel = client.get_channel(847555766843342858)
+        await message_channel.send(content,  delete_after=72000)
 
 
 @tasks.loop(hours=8)
