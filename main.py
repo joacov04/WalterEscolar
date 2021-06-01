@@ -1,5 +1,4 @@
 import discord
-import pipe
 import os
 import meets
 from dotenv import load_dotenv
@@ -27,11 +26,8 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    await pipe.findPrice(message)
-
     if message.content.startswith(prefix):
-        if 'crypto' in message.content:
-            await pipe.crypto(message)
+        pass
 
 
 @tasks.loop(seconds=60)
@@ -56,9 +52,5 @@ async def links():
         message_channel = client.get_channel(847555766843342858)
         await message_channel.send(content,  delete_after=72000)
 
-
-@tasks.loop(hours=8)
-async def prices(message):
-    await pipe.crypto(message)
 
 client.run(TOKEN)
