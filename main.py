@@ -40,9 +40,9 @@ async def links():
         message_channel = client.get_channel(838783941355896884)
         message_channel2 = client.get_channel(842742270155685898)
         message_channel3 = client.get_channel(838812861437313055)
-        await message_channel.send(content,  delete_after=72000)
-        await message_channel3.send(content, delete_after=72000)
-        await message_channel2.send(content, delete_after=72000)
+        await message_channel.send(content,  delete_after=7200)
+        await message_channel3.send(content, delete_after=7200)
+        await message_channel2.send(content, delete_after=7200)
     
     if meets.mandar2() is not None:
         dicc = meets.mandar2()
@@ -50,7 +50,7 @@ async def links():
         nom = dicc.get("nombre")
         content = f"Clase de {nom}, link: {link}"
         message_channel = client.get_channel(847555766843342858)
-        await message_channel.send(content,  delete_after=72000)
+        await message_channel.send(content,  delete_after=7200)
 
 
 client.run(TOKEN)
