@@ -1,14 +1,25 @@
+import dbManagement
+
 print("Nombre del curso: ")
 curso = input()
 
 print("Cantidad de materias (si hay una 2 dias distintos cuenta como 2): ")
 cant = int(input())
 
+print("Cantidad de canales de discord donde mandar los links: ")
+cantLinks = int(input())
+
+
+for i in range(cantLinks):
+    print(f"Ingrese el ID del canal {i}: ")
+    dbManagement.ingresarCanal(curso, str(input()))
+
 dicc = {
     'nombre': '',
     'dia': 0,
     'link': '',
-    'hora': ''
+    'hora': '',
+    'curso': ''
 }
 
 lista = []
@@ -22,15 +33,13 @@ def ingresar(i):
     dic['dia'] = int(input())
     print(f'Link de {dicc["nombre"]}:')
     dic['link'] = input()
-    print('Hora (2min antes de la clase, formato:07:58:00):')
+    print('Hora (2min antes de la clase, formato:07:58):')
     dic['hora'] = input()
+    dic['curso'] = curso
     return dic
 
 
 for i in range(cant):
     lista.append(ingresar(i))
 
-f = open('clases.py', 'a')
-f.write(curso+'='+str(lista))
-f.close()
-print(lista)
+dbManagement.insertarCurso(lista)

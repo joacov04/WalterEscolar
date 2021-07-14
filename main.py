@@ -32,25 +32,14 @@ async def on_message(message):
 
 @tasks.loop(seconds=60)
 async def links():
-    if meets.mandar() is not None:
-        dicc = meets.mandar()
-        link = dicc.get("link")
-        nom = dicc.get("nombre")
-        content = f"Clase de {nom}, link: {link}"
-        message_channel = client.get_channel(838783941355896884)
-        message_channel2 = client.get_channel(842742270155685898)
-        message_channel3 = client.get_channel(838812861437313055)
-        await message_channel.send(content,  delete_after=7200)
-        await message_channel3.send(content, delete_after=7200)
-        await message_channel2.send(content, delete_after=7200)
-    
-    if meets.mandar2() is not None:
-        dicc = meets.mandar2()
-        link = dicc.get("link")
-        nom = dicc.get("nombre")
-        content = f"Clase de {nom}, link: {link}"
-        message_channel = client.get_channel(847555766843342858)
-        await message_channel.send(content,  delete_after=7200)
+    clasesAhora = meets.getClasesAhora()
+    if clasesAhora is not None:
+        for clase in clasesAhora:
+            content = f'Clase de {clase[2]}, link: {clase[3]}'
+            canales = meets.getCanalesCurso(clase[4])
+            for canal in canales:
+                message_channel = client.get_channel(int(canal[0]))
+                await message_channel.send(content, delete_after=7200)
 
 
 client.run(TOKEN)
