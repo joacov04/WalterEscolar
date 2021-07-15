@@ -27,7 +27,16 @@ async def on_message(message):
         return
 
     if message.content.startswith(prefix):
-        pass
+        if message.content.lower() == '=proxclase':
+            curso = meets.getCursoByID(message.channel.id)[0]
+            if curso is not None:
+                clase = meets.getClaseSiguiente(curso)
+                if clase is not None:
+                    content = f'La proxima clase es {clase[2]}, a las {clase[1]}, link: {clase[3]}'
+                    await message.channel.send(content, delete_after=7200)
+                else:
+                    content = 'No hay mas clases por hoy ;)'
+                    await message.channel.send(content, delete_after=7200)
 
 
 @tasks.loop(seconds=60)

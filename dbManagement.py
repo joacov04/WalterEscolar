@@ -18,3 +18,12 @@ def insertarCurso(curso):
 def insertarCanal(nomCurso, canal):
     with conn:
         curs.execute("INSERT INTO canales VALUES (:curso, :canal)", {'curso': nomCurso, 'canal': canal})
+
+
+def insertarTarea(tarea, fecha, curso):
+    with conn:
+        curs.execute("INSERT INTO tareas VALUES (:tarea, :fecha, :curso)", {'tarea': tarea, 'fecha': fecha, 'curso': curso})
+
+
+def borrarTarea(tarea):
+    pass
