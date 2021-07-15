@@ -21,6 +21,7 @@ def insertarCanal(nomCurso, canal):
 
 
 def insertarTarea(tarea, fecha, curso):
+    # LA FECHA DEBE SER STRING Y TENER FORMATO 07/14/21
     with conn:
         curs.execute("INSERT INTO tareas VALUES (:tarea, :fecha, :curso)", {'tarea': tarea, 'fecha': fecha, 'curso': curso})
 

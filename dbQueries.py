@@ -39,3 +39,13 @@ def getCursoByID(canal):
     with conn:
         curs.execute("SELECT curso FROM canales WHERE canal=:canal", {'canal': canal})
         return curs.fetchone()
+
+
+def getTareasCurso(curso):
+    hoy = datetime.now().strftime("%m/%d/%y")
+    with conn:
+        curs.execute("SELECT * FROM tareas WHERE fecha>=:fecha AND curso=:curso", {'fecha': hoy, 'curso': curso})
+        return curs.fetchall()
+
+
+getTareasCurso('info')
