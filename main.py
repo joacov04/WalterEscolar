@@ -59,7 +59,6 @@ async def on_message(message):
                         weekday = 'sabado'
                     else:
                         weekday = 'domingo'
-                    cant += 1
                     hora = clase[1].split(':')[0] + ':' + str(int(clase[1].split(':')[1])+2) if clase[1].split(':')[1] != '58' else str(int(clase[1].split(':')[0])+1) + ':' + '00'
                     emb.add_field(name=f'{clase[2]}', value=f'{weekday} a las {hora}, link: {clase[3]}')
                 await message.channel.send(embed=emb)
