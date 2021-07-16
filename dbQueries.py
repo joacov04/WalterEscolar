@@ -34,6 +34,12 @@ def getClaseSiguiente(curso):
         return curs.fetchone()
 
 
+def getClasesCurso(curso):
+    with conn:
+        curs.execute("SELECT * FROM clases WHERE curso=:curso", {'curso': curso})
+        return curs.fetchall()
+
+
 def getCursoByID(canal):
     canal = str(canal)
     with conn:
@@ -46,6 +52,3 @@ def getTareasCurso(curso):
     with conn:
         curs.execute("SELECT * FROM tareas WHERE fecha>=:fecha AND curso=:curso", {'fecha': hoy, 'curso': curso})
         return curs.fetchall()
-
-
-getTareasCurso('info')
