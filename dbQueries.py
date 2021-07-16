@@ -34,6 +34,7 @@ def getClaseSiguiente(curso):
         return curs.fetchone()
 
 
+# Editar la hora de las clases aca
 def getClasesCurso(curso):
     with conn:
         curs.execute("SELECT * FROM clases WHERE curso=:curso", {'curso': curso})
