@@ -31,14 +31,22 @@ def getClaseSiguiente(curso):
     hoy = datetime.now().weekday()
     with conn:
         curs.execute("SELECT * FROM clases WHERE dia=:dia AND hora>=:hora AND curso=:curso", {'dia': hoy, 'hora': ahora, 'curso': curso})
-        return curs.fetchone()
+        fetch = curs.fetchall()
+        hora = fetch[1].split(':')[0] + ':' + str(int(fetch[1].split(':')[1])+2) if fetch[1].split(':')[1] != '58' else str(int(fetch[1].split(':')[0])+1) + ':' + '00'
+        tupla = (fetch[0], hora, fetch[2], fetch[3], fetch[4])
+        return tupla
 
 
-# Editar la hora de las clases aca
 def getClasesCurso(curso):
     with conn:
         curs.execute("SELECT * FROM clases WHERE curso=:curso", {'curso': curso})
-        return curs.fetchall()
+        fetch = curs.fetchall()
+        lista = []
+        for clase in fetch:
+            hora = clase[1].split(':')[0] + ':' + str(int(clase[1].split(':')[1])+2) if clase[1].split(':')[1] != '58' else str(int(clase[1].split(':')[0])+1) + ':' + '00'
+            tupla = (clase[0], hora, clase[2], clase[3], clase[4])
+            lista.append(tupla)
+        return lista
 
 
 def getCursoByID(canal):

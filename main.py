@@ -29,7 +29,7 @@ async def on_message(message):
 
     if message.content.startswith(prefix):
         if message.content.lower() == '=help':
-            emb = discord.Embed(title='Help Page', description='Este bot va a mandar los links de cada clase 2 minutos antes.\nComandos:', color=0x961111)
+            emb = discord.Embed(title='Help Page', description='WalterEscolar va a mandar los links de cada clase 2 minutos antes.\nComandos:', color=0x961111)
             emb.set_footer(text='by samurai#1995')
             emb.add_field(name="=proxclase", value="Responde con la hora y el link de la clase en el mismo dia. Este comando solo puede ser usado en canales donde manda links.", inline=False)
             emb.add_field(name="=clases", value="Responde con el dia, hora y link de cada clase. Solo se puede usar en canales donde manda links.", inline=False)
@@ -43,7 +43,6 @@ async def on_message(message):
                 emb = discord.Embed(title=f'Clases de {curso}', color=0x961111)
                 emb.set_footer(text='by samurai#1995')
                 clases = dbQueries.getClasesCurso(curso)
-                cant = 0
                 for clase in clases:
                     if clase[0] == 0:
                         weekday = 'lunes'
@@ -59,17 +58,18 @@ async def on_message(message):
                         weekday = 'sabado'
                     else:
                         weekday = 'domingo'
-                    hora = clase[1].split(':')[0] + ':' + str(int(clase[1].split(':')[1])+2) if clase[1].split(':')[1] != '58' else str(int(clase[1].split(':')[0])+1) + ':' + '00'
-                    emb.add_field(name=f'{clase[2]}', value=f'{weekday} a las {hora}, link: {clase[3]}')
+                    emb.add_field(name=f'{clase[2]}', value=f'{weekday.capitalize()} a las {clase[1]}, link: {clase[3]}')
                 await message.channel.send(embed=emb)
 
         if message.content.lower() == '=proxclase':
             curso = dbQueries.getCursoByID(message.channel.id)[0]
+            emb = discord.Embed(color=0x961111)
+            emb.set_footer(text='by samurai#1995')
             if curso is not None:
                 clase = dbQueries.getClaseSiguiente(curso)
                 if clase is not None:
-                    content = f'La proxima clase es {clase[2]}, a las {clase[1]}, link: {clase[3]}'
-                    await message.channel.send(content, delete_after=7200)
+                    emb.add_field(name=f'{clase[2]}', value=f'A las {clase[1]}, link: {clase[3]}')
+                    await message.channel.send(embed=emb, delete_after=7200)
                 else:
                     content = 'No hay mas clases por hoy ;)'
                     await message.channel.send(content, delete_after=7200) 
@@ -77,7 +77,7 @@ async def on_message(message):
         if message.content.lower().startswith('=nuevatarea'):
             msg = message.content.split(',')
             fecha = msg[1].strip(' ')
-            tarea = msg[0].lower().split('=nuevatarea')[1]
+            tarea = msg[0].lower().split('=nuevatarea')[1].lstrip(' ').capitalize()
             curso = dbQueries.getCursoByID(message.channel.id)[0]
             dbManagement.insertarTarea(tarea, fecha, curso)
 
@@ -96,11 +96,13 @@ async def links():
     clasesAhora = dbQueries.getClasesAhora()
     if clasesAhora is not None:
         for clase in clasesAhora:
-            content = f'Clase de {clase[2]}, link: {clase[3]}'
+            emb = discord.Embed(color=0x961111)
+            emb.set_footer(text='by samurai#1995')
+            emb.add_field(name=f'Clase de {clase[2]}', value=f'Link: {clase[3]}')
             canales = dbQueries.getCanalesCurso(clase[4])
             for canal in canales:
                 message_channel = client.get_channel(int(canal[0]))
-                await message_channel.send(content, delete_after=7200)
+                await message_channel.send(embed=emb, delete_after=7200)
 
 
 client.run(TOKEN)
