@@ -97,7 +97,6 @@ async def links():
     if clasesAhora is not None:
         for clase in clasesAhora:
             emb = discord.Embed(color=0x961111)
-            emb.set_footer(text='by samurai#1995')
             emb.add_field(name=f'Clase de {clase[2]}', value=f'Link: {clase[3]}')
             canales = dbQueries.getCanalesCurso(clase[4])
             for canal in canales:

@@ -32,6 +32,8 @@ def getClaseSiguiente(curso):
     with conn:
         curs.execute("SELECT * FROM clases WHERE dia=:dia AND hora>=:hora AND curso=:curso", {'dia': hoy, 'hora': ahora, 'curso': curso})
         fetch = curs.fetchall()
+        if fetch == []:
+            return None
         hora = fetch[1].split(':')[0] + ':' + str(int(fetch[1].split(':')[1])+2) if fetch[1].split(':')[1] != '58' else str(int(fetch[1].split(':')[0])+1) + ':' + '00'
         tupla = (fetch[0], hora, fetch[2], fetch[3], fetch[4])
         return tupla
